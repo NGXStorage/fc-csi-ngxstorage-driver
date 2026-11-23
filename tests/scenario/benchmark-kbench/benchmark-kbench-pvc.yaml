@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: benchmark-kbench-fc-pvc
+  namespace: benchmark-kbench-fc
+spec:
+  volumeMode: Filesystem
+  storageClassName: benchmark-kbench-fc-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

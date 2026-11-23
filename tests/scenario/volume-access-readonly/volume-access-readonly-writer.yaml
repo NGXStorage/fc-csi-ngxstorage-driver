@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-access-readonly-writer
+  namespace: default
+spec:
+  # RWO volume tek node'da stage edilir (tek format); writer ve reader aynı
+  # node'da olmalı, aksi halde iki node aynı cihazı formatlamaya çalışır.
+  nodeSelector:
+    kubernetes.io/hostname: REPLACE_WITH_WORKER_NODE
+  containers:
+  - name: writer
+    image: nginx
+    command: ["/bin/sh", "-c"]
+    args:
+    - >
+      echo "readonly-writer-data-$$" > /data/writer.txt;
+      sync;
+      tail -f /dev/null
+    volumeMounts:
+    - name: pvc
+      mountPath: /data
+  volumes:
+  - name: pvc
+    persistentVolumeClaim:
+      claimName: volume-access-readonly-pvc

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fc-stress-a
+  namespace: default
+spec:
+  accessModes: [ReadWriteOnce]
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: fc-blk-thin-dedup-comp
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fc-stress-b
+  namespace: default
+spec:
+  accessModes: [ReadWriteOnce]
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: fc-blk-thin-io-seq
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fc-stress-c
+  namespace: default
+spec:
+  accessModes: [ReadWriteOnce]
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: fc-blk-thick-qos64
